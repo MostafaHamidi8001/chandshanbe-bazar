@@ -1,13 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
-import {
-  IoPersonOutline,
-  IoHeartOutline,
-} from "react-icons/io5";
+import { IoPersonOutline, IoHeartOutline } from "react-icons/io5";
 import SearchBar from "./SearchBar";
 import SearchToggle from "./SearchToggle";
 import MobileSearchBar from "./MobileSearchBar";
+import Navbar from "../navbar/Navbar";
+import NavbarToggle from "../navbar/NavbarToggle";
+import MobileNavbar from "../navbar/MobileNavbar";
 
 const headerLinks = [
   {
@@ -36,12 +36,14 @@ const Header = () => {
           <SearchBar />
         </div>
         <ul className="flex">
-          <li className="relative mx-2 border-0 lg:hidden pb-2
+          <li
+            className="relative mx-2 border-0 lg:hidden pb-2
                overflow-hidden 
                before:absolute before:left-0 before:bottom-0 before:h-[2px] before:w-0 
                before:bg-primary-100 before:transition-all before:duration-500
                hover:before:w-full
-               hover:text-primary-100 duration-500 ">
+               hover:text-primary-100 duration-500 "
+          >
             <SearchToggle />
           </li>
           {headerLinks.map((item) => (
@@ -64,10 +66,22 @@ const Header = () => {
               </Link>
             </li>
           ))}
+          <li
+            className="relative mx-2 border-0 pb-2
+               overflow-hidden 
+               before:absolute before:left-0 before:bottom-0 before:h-[2px] before:w-0 
+               before:bg-primary-100 before:transition-all before:duration-500
+               hover:before:w-full
+               hover:text-primary-100 duration-500
+               "
+          >
+            <NavbarToggle />
+          </li>
         </ul>
       </section>
       <MobileSearchBar />
-      <nav className=""></nav>
+      <Navbar />
+      <MobileNavbar />
     </header>
   );
 };
