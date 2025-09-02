@@ -1,10 +1,12 @@
 export const navbarQuery = `
-  *[_type == "navbar"]{
+  *[_type == "navbar"] | order( order desc){
     name,
     slug,
-    menue[]{
+    order,
+    menue[] | order( order desc){
       name,
       slug,
-    }
-  }
+      order
+    },
+  } 
 `;

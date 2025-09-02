@@ -1,67 +1,59 @@
-
 import { CopyIcon } from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
-
-import ProductVariantHiddenInput from '../../components/inputs/ProductVariantHidden'
-import ShopifyDocumentStatus from '../../components/media/ShopifyDocumentStatus'
+import { defineField, defineType } from 'sanity'
 import { GROUPS } from '../../constants'
 
 export const productVariantType = defineType({
   name: 'productVariant',
-  title: 'Product variant',
+  title: 'Product Variant',
   type: 'document',
   icon: CopyIcon,
   groups: GROUPS,
   fields: [
     defineField({
-      name: 'hidden',
+      name: 'title',
+      title: 'Title',
       type: 'string',
-      components: {
-        field: ProductVariantHiddenInput,
-      },
-      hidden: ({parent}) => {
-        const isDeleted = parent?.store?.isDeleted
-
-        return !isDeleted
-      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      title: 'Title',
-      name: 'titleProxy',
-      type: 'proxyString',
-      options: {field: 'store.title'},
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: { source: 'title', maxLength: 96 },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'price',
+      title: 'Price',
+      type: 'number',
+      group: 'editorial',
+    }),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'editorial',
     }),
     defineField({
       name: 'store',
-      title: 'Shopify',
-      description: 'Variant data from Shopify (read-only)',
-      type: 'shopifyProductVariant',
+      type: 'shopifyProductVariant', // اطلاعات read-only اختیاری
+      description: 'Shopify variant data (optional)',
       group: 'shopifySync',
     }),
   ],
   preview: {
     select: {
-      isDeleted: 'store.isDeleted',
-      previewImageUrl: 'store.previewImageUrl',
-      sku: 'store.sku',
-      status: 'store.status',
-      title: 'store.title',
+      title: 'title',
+      subtitle: 'price',
+      media: 'image',
     },
     prepare(selection) {
-      const {isDeleted, previewImageUrl, sku, status, title} = selection
-
+      const { title, subtitle, media } = selection
       return {
-        media: (
-          <ShopifyDocumentStatus
-            isActive={status === 'active'}
-            isDeleted={isDeleted}
-            type="productVariant"
-            url={previewImageUrl}
-            title={title}
-          />
-        ),
-        subtitle: sku,
         title,
+        subtitle: subtitle ? `${subtitle} USD` : 'No price',
+        media,
       }
     },
   },

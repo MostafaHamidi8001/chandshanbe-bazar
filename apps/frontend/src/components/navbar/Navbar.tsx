@@ -1,19 +1,11 @@
 import Link from "next/link";
 import React, { JSX } from "react";
 import { FaKitchenSet } from "react-icons/fa6";
-import { GiAmpleDress } from "react-icons/gi";
-import { GiMonclerJacket } from "react-icons/gi";
+import { GiMonclerJacket, GiAmpleDress, GiLaptop } from "react-icons/gi";
 import { GiLipstick } from "react-icons/gi";
-import { GiLaptop } from "react-icons/gi";
-import { FaCar } from "react-icons/fa";
-import { client } from "../../../sanity.client";
-import { navbarQuery } from "@/utils/sanity/sanityQueries";
-
-interface NavbaerItemsType {
-  name: string;
-  slug: string;
-  menue: { name: string; slug: string }[];
-}
+import { FaCar, FaBlogger } from "react-icons/fa";
+import { GrArticle } from "react-icons/gr";
+import { NavbarProps } from "../header/Header";
 
 const navbaerIconsMenue: Record<string, JSX.Element> = {
   women: <GiAmpleDress />,
@@ -22,10 +14,12 @@ const navbaerIconsMenue: Record<string, JSX.Element> = {
   "digital-products": <GiLaptop />,
   cosmetics: <GiLipstick />,
   "car-accessories": <FaCar />,
+  articles: <GrArticle />,
+  blog: <FaBlogger />,
 } as const;
 
-const Navbar = async () => {
-  const navbarShopMenue: NavbaerItemsType[] = await client.fetch(navbarQuery);
+
+const Navbar = ({ navbarShopMenue }: NavbarProps) => {
   return (
     <nav className="w-full max-w-[1200px] hidden lg:block my-10">
       <ul className="flex justify-between items-center">
@@ -37,7 +31,7 @@ const Navbar = async () => {
                before:bg-primary-100 before:transition-all before:duration-500
                hover:before:w-full
                hover:text-primary-100 duration-500 "
-              href={item.slug}
+              href={`/shop/${item.slug}/kitchen`}
             >
               <span>{item.name}</span>
               <span className="px-1.5">{navbaerIconsMenue[item.slug]}</span>
@@ -46,8 +40,7 @@ const Navbar = async () => {
               className="
               absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl
               opacity-0 invisible group-hover:opacity-100 group-hover:visible
-              transform group-hover:translate-y-2 transition-all duration-300
-            "
+              transform group-hover:translate-y-2 transition-all duration-300"
             >
               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 Kitchen

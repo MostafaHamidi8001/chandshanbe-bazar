@@ -1,9 +1,5 @@
 import {defineType} from 'sanity'
 
-interface menue {
-  name: string
-  slug: string
-}
 
 export const navbar = defineType({
   name: 'navbar',
@@ -19,6 +15,11 @@ export const navbar = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'string',
+    },
+    {
+      name: 'order',
+      title: 'Order',
+      type: 'number',
     },
     {
       name: 'menue',
@@ -37,6 +38,11 @@ export const navbar = defineType({
               name: 'slug',
               title: 'Slug',
               type: 'string',
+            },
+            {
+              name: 'order',
+              title: 'Order',
+              type: 'number',
             },
           ],
         },

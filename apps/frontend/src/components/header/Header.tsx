@@ -8,6 +8,8 @@ import MobileSearchBar from "./MobileSearchBar";
 import Navbar from "../navbar/Navbar";
 import NavbarToggle from "../navbar/NavbarToggle";
 import MobileNavbar from "../navbar/MobileNavbar";
+import { client } from "../../../sanity.client";
+import { navbarQuery } from "@/utils/sanity/sanityQueries";
 
 const headerLinks = [
   {
@@ -24,7 +26,20 @@ const headerLinks = [
   },
 ];
 
-const Header = () => {
+export interface NavbaerItemsType {
+  name: string;
+  slug: string;
+  order: number;
+  menue: { name: string; slug: string; order: number }[];
+}
+
+export type NavbarProps = {
+  navbarShopMenue: NavbaerItemsType[];
+};
+
+const Header = async () => {
+  const navbarShopMenue: NavbaerItemsType[] = await client.fetch(navbarQuery);
+
   return (
     <header className="w-full flex flex-col items-center ">
       <section className="w-full max-w-[1600px] flex justify-between items-center px-2.5 py-14 h-20 border-b-[2px] border-primary-50">
@@ -80,8 +95,9 @@ const Header = () => {
         </ul>
       </section>
       <MobileSearchBar />
-      <Navbar />
-      <MobileNavbar />
+      <Navbar navbarShopMenue={navbarShopMenue} />
+      <MobileNavbar navbarShopMenue={navbarShopMenue} />
+      <div className="mt-10 h-12 w-full bg-primary-100"></div>
     </header>
   );
 };
