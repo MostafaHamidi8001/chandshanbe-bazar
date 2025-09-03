@@ -1,12 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { FaArrowLeftLong, FaStar, FaCheck, FaStarHalf } from "react-icons/fa6";
+import { client } from "../../../sanity.client";
+import { CarouselQuery } from "@/utils/sanity/sanityQueries";
+import CarouselSlide, { CarouselType } from "./CarouselSlide";
 
-const Carousel = () => {
+const Carousel = async() => {
+  const caurouselList:CarouselType[] = await client.fetch(CarouselQuery)
+  console.log(caurouselList);
+  
   return (
-    <section className="relative w-full h-[1000px] lg:h-[600px] text-xl font-bold">
-      <div className="absolute inset-0 flex items-center justify-center transition-500 animate-fade">
+    <section className="relative w-full h-[1000px] lg:h-[600px] text-xl font-bold ">
+      <CarouselSlide {...caurouselList[0]}/>
+      <CarouselSlide {...caurouselList[1]}/>
+      {/* <div className="absolute inset-0 flex items-center justify-center transition-500 animate-fade">
         <div className="max-w-[1200px] w-full flex flex-col lg:flex-row gap-12 lg:gap-0">
           <div className="flex h-[500px] lg:h-full flex-col items-center gap-10 lg:items-start justify-between">
             <p className="w-24 h-12 bg-pink-200 rounded-full text-primary-100 text-center flex items-center justify-center">
@@ -101,7 +105,7 @@ const Carousel = () => {
             </figcaption>
           </figure>
         </div>
-      </div>
+      </div> */}
       {/* <div className="absolute inset-0 flex items-center justify-center transition-500 animate-fade">
         <div className="bg-sky-500  w-[1200px] h-full"></div>
       </div>

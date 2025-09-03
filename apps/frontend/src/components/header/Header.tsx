@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoPersonOutline, IoHeartOutline } from "react-icons/io5";
 import SearchBar from "./SearchBar";
@@ -35,6 +35,21 @@ export interface NavbaerItemsType {
 
 export type NavbarProps = {
   navbarShopMenue: NavbaerItemsType[];
+};
+
+type Props = PropsWithChildren;
+
+export const NavbaerListComponent = ({ children }: Props) => {
+  return (
+    <li
+      className="relative mx-2 border-0 lg:hidden pb-2
+               overflow-hidden 
+               before:absolute before:left-0 before:bottom-0 before:h-[2px] before:w-0 
+               before:bg-primary-100 before:transition-all before:duration-500
+               hover:before:w-full
+               hover:text-primary-100 duration-500 "
+    >{children}</li>
+  );
 };
 
 const Header = async () => {

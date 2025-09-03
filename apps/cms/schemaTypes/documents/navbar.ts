@@ -1,6 +1,5 @@
 import {defineType} from 'sanity'
 
-
 export const navbar = defineType({
   name: 'navbar',
   title: 'Navbar',

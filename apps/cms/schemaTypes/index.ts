@@ -83,7 +83,8 @@ const objects = [
   shopifyProductType,
   shopifyProductVariantType,
   spotType,
-  navbar
+  navbar,
+  manualProducts
 ]
 
 import {portableTextType} from './portableText/portableTextType'
@@ -102,6 +103,7 @@ const documents = [collectionType, colorThemeType, pageType, productType, produc
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
 import { navbar } from './documents/navbar'
+import { manualProducts } from './documents/manualProduct'
 
 const singletons = [homeType, settingsType]
 
