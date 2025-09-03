@@ -1,0 +1,1 @@
+export const defaltAnimationHeaderStyle: string = "relative mx-2 border-0  pb-2 before:absolute before:left-0 before:bottom-0 before:h-[2px] before:w-0 before:bg-primary-100 before:transition-all before:duration-500 hover:before:w-full hover:text-primary-100 duration-500 "

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoPersonOutline, IoHeartOutline } from "react-icons/io5";
 import SearchBar from "./SearchBar";
@@ -8,8 +8,9 @@ import MobileSearchBar from "./MobileSearchBar";
 import Navbar from "../navbar/Navbar";
 import NavbarToggle from "../navbar/NavbarToggle";
 import MobileNavbar from "../navbar/MobileNavbar";
-import { client } from "../../../sanity.client";
-import { navbarQuery } from "@/utils/sanity/sanityQueries";
+import { client } from "../../lib/sanity/sanity.client";
+import { navbarQuery } from "@/lib/sanity/sanityQueries";
+import { defaltAnimationHeaderStyle } from "@/utils/styles";
 
 const headerLinks = [
   {
@@ -26,7 +27,7 @@ const headerLinks = [
   },
 ];
 
-export interface NavbaerItemsType {
+interface NavbaerItemsType {
   name: string;
   slug: string;
   order: number;
@@ -35,25 +36,6 @@ export interface NavbaerItemsType {
 
 export type NavbarProps = {
   navbarShopMenue: NavbaerItemsType[];
-};
-
-type Props = PropsWithChildren<{
-  customeClassNames?: string;
-}>;
-
-export const NavbaerListComponent = ({ children, customeClassNames }: Props) => {
-  return (
-    <li
-      className={`relative mx-2 border-0  pb-2
-               overflow-hidden 
-               before:absolute before:left-0 before:bottom-0 before:h-[2px] before:w-0 
-               before:bg-primary-100 before:transition-all before:duration-500
-               hover:before:w-full
-               hover:text-primary-100 duration-500 ${customeClassNames}`}
-    >
-      {children}
-    </li>
-  );
 };
 
 const Header = async () => {
@@ -66,27 +48,27 @@ const Header = async () => {
           <span className="text-primary-100">چندشنبه </span>
           <span className="text-primary-300">بازار</span>
         </Link>
-        <div className="hidden lg:block" >
+        <div className="hidden lg:block">
           <SearchBar />
         </div>
         <ul className="flex">
-          <NavbaerListComponent customeClassNames="lg:hidden">
+          <li className={defaltAnimationHeaderStyle + "lg:hidden"}>
             <SearchToggle />
-          </NavbaerListComponent>
+          </li>
           {headerLinks.map((item) => (
-            <NavbaerListComponent key={item.name}>
+            <li className={defaltAnimationHeaderStyle} key={item.name}>
               <Link
-                className="size-full font-bold flex justify-center items-center"
                 href="/"
+                className="size-full font-bold flex justify-center items-center"
               >
                 <span className="hidden lg:block">{item.name}</span>
                 <span className="px-1.5 text-lg">{item.icon}</span>
               </Link>
-            </NavbaerListComponent>
+            </li>
           ))}
-          <NavbaerListComponent>
+          <li className={defaltAnimationHeaderStyle}>
             <NavbarToggle />
-          </NavbaerListComponent>
+          </li>
         </ul>
       </section>
       <MobileSearchBar />

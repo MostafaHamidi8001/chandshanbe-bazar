@@ -1,5 +1,5 @@
-import { client } from "../../../sanity.client";
-import { CarouselQuery } from "@/utils/sanity/sanityQueries";
+import { client } from "../../lib/sanity/sanity.client";
+import { CarouselQuery } from "@/lib/sanity/sanityQueries";
 import CarouselSlide, { CarouselType } from "./CarouselSlide";
 
 const Carousel = async() => {
