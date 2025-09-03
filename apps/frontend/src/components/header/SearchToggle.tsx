@@ -7,7 +7,7 @@ const SearchToggle = () => {
   const { toggle } = useSearchStore()
   return (
     <button
-      className="size-full flex justify-center items-center text-xl cursor-pointer"
+      className="size-full flex justify-center items-center text-xl cursor-pointer lg:hidden"
       onClick={toggle}
     >
       <IoSearchOutline />
