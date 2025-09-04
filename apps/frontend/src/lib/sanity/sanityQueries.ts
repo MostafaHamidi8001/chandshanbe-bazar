@@ -1,15 +1,31 @@
 export const navbarQuery = `
-  *[_type == "navbar"] | order( order desc){
-    name,
+  *[_type == "navbar"] | order(order asc) {
+  name,
+  slug,
+  order,
+  menu[] | order(order asc) {
+    category,
     slug,
     order,
-    menue[] | order( order desc){
-      name,
+    subMenu[] | order(order asc) {
+      title,
       slug,
       order
-    },
-  } 
+    }
+  }
+}
 `;
+
+export const getNavbarRoute = `
+   *[_type == "navbar" && slug == $slug] | order(order asc) {
+  name,
+  menu [slug == $menuSlug] {
+    category,
+    subMenu [slug == $subMenuSlug] {
+      title,
+    }
+  }
+}`;
 
 export const CarouselQuery = `*[_type == "manualProducts"] | order(order asc) {
   order,

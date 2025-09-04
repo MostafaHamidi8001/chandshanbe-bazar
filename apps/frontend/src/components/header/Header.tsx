@@ -27,19 +27,32 @@ const headerLinks = [
   },
 ];
 
-interface NavbaerItemsType {
+export interface SubMenuItemType {
+  title: string;
+  slug: string;
+  order: number;
+}
+
+export interface MenuItemType {
+  category: string;
+  slug: string;
+  order: number;
+  subMenu: SubMenuItemType[];
+}
+
+export interface NavbarItemsType {
   name: string;
   slug: string;
   order: number;
-  menue: { name: string; slug: string; order: number }[];
+  menu: MenuItemType[];
 }
 
 export type NavbarProps = {
-  navbarShopMenue: NavbaerItemsType[];
-};
+  navbarShopMenue: NavbarItemsType[]
+}
 
 const Header = async () => {
-  const navbarShopMenue: NavbaerItemsType[] = await client.fetch(navbarQuery);
+  const navbarShopMenue: NavbarItemsType[] = await client.fetch(navbarQuery);
 
   return (
     <header className="w-full flex flex-col items-center ">
