@@ -17,12 +17,14 @@ export const navbarQuery = `
 `;
 
 export const getNavbarRoute = `
-   *[_type == "navbar" && slug == $slug] | order(order asc) {
+ *[_type == "navbar" && slug == $slug] | order(order asc) {
   name,
-  menu [slug == $menuSlug] {
+  // menu فقط وقتی که $menuSlug تعریف شده
+  menu[$menuSlug != null && slug == $menuSlug] {
     category,
-    subMenu [slug == $subMenuSlug] {
-      title,
+    // subMenu فقط وقتی $subMenuSlug تعریف شده
+    subMenu[$subMenuSlug != null && slug == $subMenuSlug] {
+      title
     }
   }
 }`;
