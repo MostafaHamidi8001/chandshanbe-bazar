@@ -186,6 +186,7 @@ const MobileNavbar = ({ navbarShopMenue }: NavbarProps) => {
                     </AccordionContent>
                   )}
                 </AccordionItem>
+                
               )
 
               // <AccordionItem key={item.slug} value={item.slug}>
