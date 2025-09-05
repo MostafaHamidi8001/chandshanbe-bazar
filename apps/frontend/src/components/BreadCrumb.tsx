@@ -9,64 +9,71 @@ type routesListType = {
 };
 
 type Props = {
-  params: { categories?: string[] | string };
   categoryOrigin: routesListType;
+  slug: string | null;
+  menuSlug: string | null;
+  subMenuSlug: string | null;
+  product?: string;
 };
 
-async function BreadCrumb({ params, categoryOrigin }: Props) {
-  const slugs = Array.isArray(params?.categories) ? params.categories : [];
-  const slug = slugs[0];
-  const menuSlug = slugs[1];
-  const subMenuSlug = slugs[2];
+async function BreadCrumb({
+  slug,
+  menuSlug,
+  subMenuSlug,
+  product,
+  categoryOrigin,
+}: Props) {
   const [routes] = await client.fetch(getNavbarRoute, {
-    slug: slug ?? null,
-    menuSlug: menuSlug ?? null,
-    subMenuSlug: subMenuSlug ?? null,
+    slug,
+    menuSlug,
+    subMenuSlug,
   });
 
-  //   console.log(routes, slug, subMenuSlug, menuSlug);
-
   const routesList = [{ category: "خانه", routeLink: "/" }, categoryOrigin];
-  if (slugs[0])
+  if (slug)
     routesList.push({
       category: routes.name,
-      routeLink: `${categoryOrigin.routeLink}/${slugs[0]}`,
+      routeLink: `${categoryOrigin.routeLink}/${slug}`,
     });
-  if (slugs[1])
+  if (menuSlug)
     routesList.push({
       category: routes.menu[0].category,
-      routeLink: `${categoryOrigin.routeLink}/${slugs[0]}/${slugs[1]}`,
+      routeLink: `${categoryOrigin.routeLink}/${slug}/${menuSlug}`,
     });
-  if (slugs[2])
+  if (subMenuSlug)
     routesList.push({
       category: routes.menu[0].subMenu[0].title,
-      routeLink: `${categoryOrigin.routeLink}/${slugs[0]}/${slugs[1]}/${slugs[2]}`,
+      routeLink: `${categoryOrigin.routeLink}/${slug}/${menuSlug}/${subMenuSlug}`,
     });
-
-  console.log(routesList);
+  if (product)
+    routesList.push({
+      category: product,
+      routeLink: '',
+    });
 
   return (
     <section className=" w-full flex justify-center bg-primary-50">
-      <div className=" w-full ">
-        <ol className="w-full flex items-center pr-2 md:pr-5 py-5 h-20">
+      <div className="max-w-[1200px] w-full flex flex-col justify-evenly h-24 pr-2">
+        <ol className="w-full flex items-center ">
           {routesList.map((item, index) => (
-            <li key={index} className="md:px-2.5 px-0:1.5 text-sm">
+            <li key={index} className="text-sm">
               {index !== routesList.length - 1 ? (
                 <>
                   <Link
                     className="cursor-pointer text-primary-100 hover:text-primary-100/75 "
                     href={item.routeLink}
                   >
-                    {item.category}{" "}
+                    {item.category}
                   </Link>
-                  <span className="text-gray-300 text-lg px-2.5">/</span>
+                  <span className="text-gray-300 text-lg md:px-2.5 px-1.5 pt-1.5">/</span>
                 </>
               ) : (
-                <strong aria-current="page">{item.category}</strong>
+                <em aria-current="page">{item.category}</em>
               )}
             </li>
           ))}
         </ol>
+        <strong className="text-2xl font-extrabold text-primary-300 ">{routesList[routesList.length-1].category}</strong>
       </div>
     </section>
   );

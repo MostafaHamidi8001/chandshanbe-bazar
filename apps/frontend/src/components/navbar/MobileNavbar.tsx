@@ -11,7 +11,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { NavbarProps } from "../header/Header";
-import { Plus } from "lucide-react";
 import Link from "next/link";
 
 const MobileNavbar = ({ navbarShopMenue }: NavbarProps) => {
