@@ -21,7 +21,7 @@ import { defaltAnimationHeaderStyle } from "@/utils/styles";
 import { MdCable, MdSpeakerGroup } from "react-icons/md";
 import { BsEarbuds } from "react-icons/bs";
 
-const navbaerIconsMenue: Record<string, JSX.Element> = {
+export const navbaerIconsMenue: Record<string, JSX.Element> = {
   women: <GiAmpleDress />,
   men: <GiMonclerJacket />,
   "home-appliances": <FaKitchenSet />,
